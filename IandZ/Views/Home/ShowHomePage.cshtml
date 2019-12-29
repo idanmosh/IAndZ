@@ -1,0 +1,75 @@
+﻿@model IandZ.Models.ProductsVM
+@using IandZ.Models
+@{
+    ViewBag.Title = "Welcome to I&Z pet shop";
+    if (ViewBag.succeded != null)
+    {
+        if (ViewBag.succeded == "you must login to submit an order pls login and try again")
+        {
+            <script language="javascript">alert('you must login to submit an order pls login and try again')</script>
+            <div></div>
+        }
+        else
+        {
+            <script language="javascript">alert('order submited succesfully, our team will contact you soon')</script>
+            <div></div>
+        }
+        ViewBag.succeded = null;
+    }
+}
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+<head>
+    <style>
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: auto auto auto;
+            grid-gap: 50px 50px;
+            background-color: white;
+            padding: 50px;
+        }
+
+        .grid-item {
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 0.5px solid rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            font-size: 30px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <br />
+    <br />
+    <br />
+    <div>
+        <div id="status"></div>
+        <h2>Hilights</h2>
+        <h1>@ViewBag.str</h1>
+        <div id="pGrid" class="grid-container">
+            @if (Model != null && Model.Products_list != null)
+            {
+                int i = 0;
+                foreach (Products x in Model.Products_list)
+                {
+                    <div class='grid-item'>
+                        <form method='post' action=@Url.Action("PlaceOrder","Home")>
+                            <input type="hidden" name="pid" value=@x.ProductId>
+                            <div>@x.Product_name</div>
+                            <img src=@x.Img_url
+                                 width="150" height="150" />
+                            <div>@x.Price $</div>
+                            <input id="Button1" type="submit" value="Buy Now" onclick="return confirm('do you want to place order ?')" />
+                        </form>
+                    </div>
+                    i++;
+                }
+            }
+        </div>
+
+
+    </div>
+</body>
+

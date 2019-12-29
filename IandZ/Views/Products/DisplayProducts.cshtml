@@ -1,0 +1,23 @@
+﻿@model IandZ.Models.ProductsVM
+@using IandZ.Models;
+@{
+    WebGrid obj = new WebGrid(Model.Products_list);
+}	
+<h2>Products list</h2>
+<hr />
+<div class="row">
+    @obj.GetHtml(
+         tableStyle: "table-table-responsive table-striped table-bordered",
+         columns: obj.Columns(
+             obj.Column(header: "Description", format:@<text><div class="edit" data-propertyname="Description">@item.Description</div></text>),
+                     obj.Column(header: "Img-url", format:@<text><div class="edit" data-propertyname="Img_url">@item.Img_url</div></text>),
+                             obj.Column(header: "Product Id", format:@<text><div class="edit" data-propertyname="ProductId">@item.ProductId</div></text>),
+                                     obj.Column(header: "Product name", format:@<text><div class="edit" data-propertyname="Product_name">@item.Product_name</div></text>),
+                                            obj.Column(header: "Type", format:@<text><div class="edit" data-propertyname="Type">@item.Type</div></text>)))
+
+</div>
+
+<style>
+    .table td{width:25%;}
+</style>
+

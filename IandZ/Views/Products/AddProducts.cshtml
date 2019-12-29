@@ -1,0 +1,56 @@
+﻿@model IandZ.Models.ProductsVM
+@using IandZ.Models
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+</head>
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+<br />
+<br />
+<br />
+<body>
+    <h2>Add New Product</h2>
+    <form action="Submit" method="post" />
+        <table>
+            <tr>
+                <td>Product Id</td>
+                <td>@Html.TextBoxFor(m => m.Product.ProductId)<span style="color:red">@Html.ValidationMessageFor(x => x.Product.ProductId)</span></td>
+            </tr>
+            <tr>
+                <td>Product Price</td>
+                <td>@Html.TextBoxFor(m => m.Product.Price)<span style="color:red">@Html.ValidationMessageFor(x => x.Product.Price)</span></td>
+            </tr>
+            <tr>
+                <td>Product Name</td>
+                <td>@Html.TextBoxFor(m => m.Product.Product_name)<span style="color:red">@Html.ValidationMessageFor(x => x.Product.Product_name)</span></td>
+            </tr>
+            <tr>
+                <td>Product Image</td>
+                <td>@Html.TextBoxFor(m => m.Product.Img_url)<span style="color:red">@Html.ValidationMessageFor(x => x.Product.Img_url)</span></td>
+            </tr>
+            <tr>
+                <td>Product Description</td>
+                <td>@Html.TextBoxFor(m => m.Product.Description)<span style="color:red">@Html.ValidationMessageFor(x => x.Product.Description)</span></td>
+            </tr>
+            <tr>
+                <td>Type:</td>
+                <td>
+                    @Html.DropDownListFor(m=>m.Product.Type, new List<SelectListItem>
+                         { new SelectListItem { Text = "Dogs", Value = "Dogs"},
+                           new SelectListItem { Text = "Cats", Value = "Cats"},
+                           })
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2"><input id="Submit1" type="submit" value="Add Product" /></td>
+            </tr>
+        </table>
+        <br />
+        @Html.Partial("DisplayProducts", Model)
+</body>
+
+    
+
+

@@ -1,0 +1,77 @@
+﻿@using IandZ.Models
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I&Z - @ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("I & Z", "ShowHomePage", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+
+                    <li>@Html.ActionLink("Dogs", "Dogs", "Products")</li>
+                    <li>@Html.ActionLink("Cats", "Cats", "Products")</li>
+                    @if (Session["signedin"] != null)
+                    {
+                        string welcome = "Welcome " + (Session["signedin"] as Users).UserName;
+                        <li style="color:white;position:center,absolute,fixed;">@welcome </li>
+                        if (Convert.ToBoolean(Session["isadmin"]))
+                        {
+                            <li>@Html.ActionLink("Add Product to Catalog", "AddProducts", "Products")</li>
+                            <li>@Html.ActionLink("watch Orders", "Orders", "Products")</li>
+                        }
+                        <li>@Html.ActionLink("Log out", "Logout", "Login")</li>
+
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Login", "Login", "Login")</li>
+                        <li>@Html.ActionLink("Sign-up", "Signup", "Login")</li>
+
+                    }
+                    <li>
+                        @using (Html.BeginForm("search", "Products"))
+                        {
+
+                            <div class="form-group">
+                                <input type="text" id="teste" name="product_name" data-provide="typehead" class="form-control" placeholder="Search Products" autocomplete="off">
+                            </div>
+
+                            <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+
+                        }
+                    </li>
+                </ul>
+
+
+
+
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p style="color:blue;"> @DateTime.Now.Year - Idan And Zohar pet store</p>
+        </footer>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
